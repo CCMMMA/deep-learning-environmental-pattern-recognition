@@ -108,45 +108,45 @@ j,i,lat,lon,THETA_W850,THETA_E850,GPH850,GPH500,SLP,T2C,RH2,U10M,V10M,TC1000,RH1
 |i| West-East 0-based index of the data matrix|
 |lat| Latitude of the point - for GIS visualization|
 |lon| Longitude of the point - for GIS visualization|
-|THETA_W850||
-|THETA_E850||
-|GPH850||
-|GPH500||
-|SLP| Air pressure at the sea level (HPa)|
+|THETA_W850|| Wet-bulb potential temperature at 850 hPa level (°C)
+|THETA_E850|| Equivalent potential temperature at 850 hPa level (°C)
+|GPH850|| Geopotential height at 850 hPa level (dam)
+|GPH500|| Geopotential height at 500 hPa level (dam)
+|SLP| Air pressure at the sea level (hPa)|
 |T2C| Temperature at 2 meters in Celsius degree|
 |RH2| Relative humidity at 2 meters in 0-1 range (0% - 100%)|
 |U10M| West-East wind component at 10 meters (ms^-1, meters per second)|
 |V10M| South-North wind component at 10 meters (ms^-1, meters per second)|
-|TC1000||
-|RH1000||
-|U1000||
-|V1000||
-|TC975||
-|RH975||
-|U975||
-|V975||
-|TC950||
-|RH950||
-|U950||
-|V950||
-|TC925||
-|RH925||
-|U925||
-|V925||
-|TC850||
-|RH850||
-|U850||
-|V850||
-|TC700||
-|RH700||
-|U700||
-|V700||
-|TC500||
-|RH500||
-|U500||
-|V500||
-|TC300||
-|RH300||
-|U300||
-|V300||
+|TC1000|| Temperature at 1000 hPa level (°C)
+|RH1000|| Relative humidity at 1000 hPa level (%)
+|U1000|| u-wind component at 1000 hPa level (ms^-1, meters per second)
+|V1000|| v-wind component at 1000 hPa level (ms^-1, meters per second)
+|TC975|| Temperature at 975 hPa level (°C)
+|RH975|| Relative humidity at 975 hPa lvel (%)
+|U975|| u-wind component at 975 hPa level (ms^-1, meters per second)
+|V975|| v-wind component at 975 hPa level (ms^-1, meters per second)
+|TC950|| Temperature at 950 hPa level (°C)
+|RH950|| Relative humidity at 950 hPa lvel (%)
+|U950|| u-wind component at 950 hPa level (ms^-1, meters per second)
+|V950|| v-wind component at 950 hPa level (ms^-1, meters per second)
+|TC925||  Temperature at 925 hPa level (°C)
+|RH925|| Relative humidity at 925 hPa lvel (%)
+|U925|| u-wind component at 925 hPa level (ms^-1, meters per second)
+|V925|| v-wind component at 925 hPa level (ms^-1, meters per second)
+|TC850|| Temperature at 850 hPa level (°C)
+|RH850|| Relative humidity at 850 hPa lvel (%)
+|U850|| u-wind component at 850 hPa level (ms^-1, meters per second)
+|V850|| v-wind component at 850 hPa level (ms^-1, meters per second)
+|TC700|| Temperature at 700 hPa level (°C)
+|RH700|| Relative humidity at 700 hPa lvel (%)
+|U700||  u-wind component at 700 hPa level (ms^-1, meters per second)
+|V700|| v-wind component at 700 hPa level (ms^-1, meters per second)
+|TC500|| Temperature at 500 hPa level (°C)
+|RH500|| Relative humidity at 500 hPa lvel (%)
+|U500|| u-wind component at 500 hPa level (ms^-1, meters per second)
+|V500|| v-wind component at 500 hPa level (ms^-1, meters per second)
+|TC300|| Temperature at 300 hPa level (°C)
+|RH300|| Relative humidity at 300 hPa lvel (%)
+|U300|| u-wind component at 300 hPa level (ms^-1, meters per second)
+|V300|| v-wind component at 300 hPa level (ms^-1, meters per second)
 |label| The label code - see the label table|
