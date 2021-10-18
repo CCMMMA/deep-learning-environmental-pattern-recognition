@@ -1,6 +1,10 @@
-tensorflow
+tensorflow~=2.0.0
 pandas
 scipy
 numpy
 matplotlib
 absl-py
+tqdm
+scikit-learn
+joblib
+h5py

@@ -1,1 +1,0 @@
-from .som import som, som_cluters, SOM
