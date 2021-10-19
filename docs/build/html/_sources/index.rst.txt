@@ -43,6 +43,11 @@ Weather dataset are labeled using the Weather Labeling Web Application (https://
    :caption: Contents:
 
 
+.. automodule:: clustering
+.. automodule:: models
+.. automodule:: utils
+
+
 
 Indices and tables
 ==================

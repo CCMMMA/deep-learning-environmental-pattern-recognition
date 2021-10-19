@@ -14,6 +14,19 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
+import os.path as osp
+import sys
+
+
+def add_path(path):
+    if path not in sys.path:
+        sys.path.insert(0, path)
+
+
+this_dir = osp.dirname(__file__)
+
+lib_path = osp.join(this_dir, '', '../../lib')
+add_path(lib_path)
 
 # -- Project information -----------------------------------------------------
 
@@ -28,6 +41,7 @@ author = 'Emanuel Di Nardo, Diana Di Luccio, Vincenzo Capozzi, Angelo Ciaramella
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
