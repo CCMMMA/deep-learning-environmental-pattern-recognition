@@ -10,23 +10,10 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
-
-import os.path as osp
+import os
 import sys
+sys.path.insert(0, os.path.abspath('../../lib'))
 
-
-def add_path(path):
-    if path not in sys.path:
-        sys.path.insert(0, path)
-
-
-this_dir = osp.dirname(__file__)
-
-lib_path = osp.join(this_dir, '', '../../lib')
-add_path(lib_path)
 
 # -- Project information -----------------------------------------------------
 
@@ -41,7 +28,10 @@ author = 'Emanuel Di Nardo, Diana Di Luccio, Vincenzo Capozzi, Angelo Ciaramella
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc'
+    'sphinx.ext.autodoc',
+    'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.autosummary'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

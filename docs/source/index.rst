@@ -1,8 +1,3 @@
-.. Deep Learning Environmental Pattern Recognition documentation master file, created by
-   sphinx-quickstart on Tue Oct 19 10:57:14 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to Deep Learning Environmental Pattern Recognition's documentation!
 ===========================================================================
 
@@ -39,14 +34,12 @@ Weather dataset are labeled using the Weather Labeling Web Application (https://
 * Montella, R., Di Luccio, D., Ciaramella, A., & Foster, I. (2019, October). StormSeeker: A Machine-Learning-Based Mediterranean Storm Tracer. In International Conference on Internet and Distributed Computing Systems (pp. 444-456). Springer, Cham.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-
-.. automodule:: clustering
-.. automodule:: models
-.. automodule:: utils
-
+   clustering
+   models
+   utils
 
 
 Indices and tables
