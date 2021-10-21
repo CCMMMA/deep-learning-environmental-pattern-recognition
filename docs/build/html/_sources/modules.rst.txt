@@ -1,7 +1,7 @@
-Utils
-=====
+clustering
+==========
 
 .. toctree::
    :maxdepth: 4
 
-   utils
+   clustering

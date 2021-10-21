@@ -13,7 +13,23 @@ FLAGS = flags.FLAGS
 
 
 class NEC(object):
+    """
+    Negentropy Clustering
+    """
     def __init__(self, n_centers, lr=0.1, decay_steps=1000, max_epoch=100, input_shape=None):
+        """
+
+        :param n_centers: Number of centers/clusters
+        :type n_centers: int
+        :param lr: Learning rate
+        :type lr: float
+        :param decay_steps: Decay steps to use with learning rate
+        :type decay_steps: int
+        :param max_epoch: Number of training steps
+        :type max_epoch: int
+        :param input_shape: Shape of the input data, can be None
+        :type input_shape: Tuple(int, int)
+        """
         self.n_centers = n_centers
         self.lr = lr
         self.decay_steps = decay_steps

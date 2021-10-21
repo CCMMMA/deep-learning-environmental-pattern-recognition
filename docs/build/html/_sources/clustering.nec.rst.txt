@@ -1,31 +1,17 @@
 NEC
 ===
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   clustering.nec.clustering
-   clustering.nec.layers
-   clustering.nec.losses
-   clustering.nec.plotting
-
 Submodules
 ----------
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 1
 
-   clustering.nec.negentropy_clustering
 
 Module contents
 ---------------
 
-.. automodule:: clustering.nec
+.. automodule:: clustering.nec.negentropy_clustering
    :members:
-   :undoc-members:
+   :special-members: __init__
    :show-inheritance:
-
-* :ref:`genindex`

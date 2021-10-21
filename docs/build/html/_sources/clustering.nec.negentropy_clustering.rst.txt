@@ -1,9 +1,7 @@
-Negentropy\_Clustering
-======================
+NEC
+===
 
-.. automodule:: clustering.nec.negentropy_clustering
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 1
 
-* :ref:`genindex`
+

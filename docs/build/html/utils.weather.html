@@ -156,13 +156,17 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">utils</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current has-children"><a class="reference internal" href="utils.html">Utils</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="utils.data.html">Data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.model.html">Models</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Weather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clustering.nec.negentropy_clustering.html">clustering.nec.negentropy_clustering module</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="models.html">Models</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.classification.html">Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.clustering.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.unsupervised.html">Unsupervised</a></li>
 </ul>
 </li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="utils.html">Utils</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="utils.data.html">Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.model.html">Models</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Weather</a></li>
 </ul>
 </li>
 </ul>
@@ -196,6 +200,28 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.weather.evaluate_and_store">
 <span class="sig-prename descclassname"><span class="pre">utils.weather.</span></span><span class="sig-name descname"><span class="pre">evaluate_and_store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_scaler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_labels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.weather.evaluate_and_store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate model on weather pattern on a list of data. It automatically save a new file with
+two new columns one with classification numeric result and another with classification label name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>records</strong> (<em>List</em><em>[</em><em>Dataframe</em><em>]</em>) – A list of dataframe</p></li>
+<li><p><strong>set_type</strong> (<em>str</em>) – Name to associate with output_file (train|test)</p></li>
+<li><p><strong>model</strong> (<em>tf.keras.Model</em>) – Tensorflow model</p></li>
+<li><p><strong>x_scaler</strong> (<em>sklearn Scaler</em>) – Scaler used in training process</p></li>
+<li><p><strong>label_map</strong> (<em>dict</em>) – Label to associate with output</p></li>
+<li><p><strong>log_dir</strong> (<em>str</em>) – Path to directory where save output files</p></li>
+<li><p><strong>filter_labels</strong> (<em>list-like</em>) – Columns to use in estimation process</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.weather.evaluate_clusters_and_store">
+<span class="sig-prename descclassname"><span class="pre">utils.weather.</span></span><span class="sig-name descname"><span class="pre">evaluate_clusters_and_store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_extractor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_scaler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.weather.evaluate_clusters_and_store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate model on weather pattern on a list of data. It automatically save a new file with
 two new columns one with classification numeric result and another with classification label name</p>
 <dl class="field-list simple">
