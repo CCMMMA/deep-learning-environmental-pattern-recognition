@@ -97,7 +97,7 @@ def main(args):
         # Preprocess data with selected scaler
         scaler = utils.data.get_scaler(settings, log_dir, load_scaler=settings.DATASET.PREPROCESSING.SCALER.LOAD)
         train_data, test_data = utils.data.preprocessing(data, scaler, settings, log_dir,
-                                                         fit_scaler=settings.DATASET.PREPROCESSING.SCALER.LOAD,
+                                                         fit_scaler=not settings.DATASET.PREPROCESSING.SCALER.LOAD,
                                                          with_labels=with_labels)
         # Get number of output features
         n_features = train_data[0].shape[-1]

@@ -15,7 +15,7 @@ DATASET:
   PREPROCESSING:
     SCALER:
       TYPE: 'standard'
-      LOAD: 'scaler.joblib'
+      LOAD: False  #'scaler.joblib'
     RANDOM_SEED: 42
     VALIDATION:
       TYPE: 'random'
