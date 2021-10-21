@@ -34,8 +34,8 @@ class NEC(object):
     def __call__(self, inputs):
         if not self.built:
             raise RuntimeError('Please use .fit() before call')
-        ng, clusters = agglomerative(self.centers, plot=True)
-        return ng, clusters
+        _, clusters = agglomerative(self.centers, plot=True)
+        return clusters
 
     def predict(self, inputs):
         return self(inputs)

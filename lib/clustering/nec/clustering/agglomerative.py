@@ -7,6 +7,7 @@ from clustering.nec.plotting import plot_dendrogram
 def agglomerative(centroids, t=0.5, criterion='distance', method='single', metric='euclidean', plot=False):
     """
     Agglomerative clustering of centroids based on negentropy
+
     :param centroids: Centroids to clusterize
     :param t: threshold value for criterion, based on
     https://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.fcluster.html
@@ -26,11 +27,12 @@ def agglomerative(centroids, t=0.5, criterion='distance', method='single', metri
 
     for i in range(n_centroids):
         for j in range(i+1, n_centroids):
-            centroid = np.concatenate([centroids[i], centroids[j]], axis=1)
+            centroid = np.concatenate([centroids[i], centroids[j]], axis=0)
             ng.append(negentropy(centroid, [centroids[i], centroids[j]], func=1, a=1))
 
     ng = np.asarray(ng)
     Z = linkage(ng, method=method, metric=metric)
+
     if plot:
         plot_dendrogram(Z)
 

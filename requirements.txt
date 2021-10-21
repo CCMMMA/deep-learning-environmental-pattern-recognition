@@ -8,3 +8,5 @@ tqdm
 scikit-learn
 joblib
 h5py
+easydict
+pyyaml

@@ -25,7 +25,8 @@ def read_dataset(data_path, columns, split, fillnan=True, filter_labels=None, ve
     :return: Array with size (number_of_samples, number_of_columns)
     :rtype: Pandas DataFrame
     """
-    files = glob.glob(os.path.join(data_path, '*.csv'))
+
+    files = glob.glob(os.path.join(data_path, '**', '*.csv.gz'), recursive=True)
     df = pd.concat([pd.read_csv(file, usecols=columns)
                     for file in tqdm.tqdm(files, desc=f'Dataloader: {verbose_name}')
                     if any(t in file for t in split)], ignore_index=True)
@@ -37,7 +38,7 @@ def read_dataset(data_path, columns, split, fillnan=True, filter_labels=None, ve
     if filter_labels is not None:
         df = df.loc[df['label'].isin(filter_labels)]
 
-    return df
+    return np.array(df)
 
 
 def dataloader(data_path, columns, train_split, test_split=None, fillnan=True, filter_labels=None):
@@ -61,11 +62,15 @@ def dataloader(data_path, columns, train_split, test_split=None, fillnan=True, f
     :rtype: List[Tuple[Dataframe, str]], List[Tuple[Dataframe, str]]
     """
 
-    train_data = read_dataset(data_path, columns, train_split, fillnan, filter_labels, 'train data'.upper())
+    if train_split is None and test_split is None:
+        raise RuntimeError('One of train_split or test_split must be not none')
+
+    train_data = read_dataset(data_path, columns, train_split, fillnan, filter_labels, 'train data'.upper()) \
+        if train_split is not None else None
     test_data = read_dataset(data_path, columns, test_split, fillnan, filter_labels, 'test data'.upper()) \
         if test_split is not None else None
 
-    return np.array(train_data), np.array(test_data)
+    return train_data, test_data
 
 
 def read_dataset_list(data_path, columns, split, fillnan=True, filter_labels=None, verbose_name=None):
@@ -87,7 +92,7 @@ def read_dataset_list(data_path, columns, split, fillnan=True, filter_labels=Non
     :return: A list of arrays of shape (number_of_samples, all_columns) and filenames
     :rtype: (list of Pandas DataFrame, str)
     """
-    files = glob.glob(os.path.join(data_path, '*.csv'))
+    files = glob.glob(os.path.join(data_path, '**', '*.csv.gz'), recursive=True)
     df = [(pd.read_csv(file, usecols=columns), file)
           for file in tqdm.tqdm(files, desc=f'Dataloader/file: {verbose_name}')
           if any(t in file for t in split)]
@@ -171,7 +176,7 @@ def split_labels(data, label_idx=-1):
         raise RuntimeError('Labels must be on axis 0 or 1')
 
 
-def preprocessing(data, settings, log_dir, load_scaler=False, with_labels=False):
+def preprocessing(data, scaler, settings, log_dir, fit_scaler=False, with_labels=False):
     """
 
     :param data: Data array
@@ -204,17 +209,8 @@ def preprocessing(data, settings, log_dir, load_scaler=False, with_labels=False)
         test_data = data[1]
         test_label = None
 
-    if settings.DATASET.PREPROCESSING.SCALER == 'standard':
-        scaler = StandardScaler()  # Range is not defined, best to use a StandardScaler
-    elif settings.DATASET.PREPROCESSING.SCALER == 'minmax':
-        scaler = MinMaxScaler()
-    else:
-        scaler = FunctionTransformer()
-
-    if load_scaler:
-        scaler = joblib.load(os.path.join(log_dir, 'scaler.joblib'))
-    else:
-        scaler = scaler.fit(train_data)
+    if fit_scaler:
+        scaler = scaler.fit(data)
         joblib.dump(scaler, os.path.join(log_dir, 'scaler.joblib'))
 
     train_data = scaler.transform(train_data)
@@ -223,13 +219,28 @@ def preprocessing(data, settings, log_dir, load_scaler=False, with_labels=False)
         if with_labels:
             train_data, test_data, train_label, test_label = train_test_split(train_data, train_label,
                                                                               test_size=settings.DATASET
-                                                                              .PREPROCESSING.TEST_SIZE,
+                                                                              .PREPROCESSING.VALIDATION.TEST_SIZE,
                                                                               random_state=settings.DATASET
                                                                               .PREPROCESSING.RANDOM_SEED)
         else:
-            train_data, test_data = train_test_split(train_data, test_size=settings.DATASET.PREPROCESSING.TEST_SIZE,
+            train_data, test_data = train_test_split(train_data,
+                                                     test_size=settings.DATASET.PREPROCESSING.VALIDATION.TEST_SIZE,
                                                      random_state=settings.DATASET.PREPROCESSING.RANDOM_SEED)
     else:
         test_data = scaler.transform(test_data)
 
-    return scaler, [train_data, train_label], [test_data, test_label]
+    return [train_data, train_label], [test_data, test_label]
+
+
+def get_scaler(settings, log_dir, load_scaler=False):
+    if settings.DATASET.PREPROCESSING.SCALER.TYPE == 'standard':
+        scaler = StandardScaler()  # Range is not defined, best to use a StandardScaler
+    elif settings.DATASET.PREPROCESSING.SCALER.TYPE == 'minmax':
+        scaler = MinMaxScaler()
+    else:
+        scaler = FunctionTransformer()
+
+    if load_scaler:
+        scaler = joblib.load(os.path.join(log_dir, settings.DATASET.PREPROCESSING.SCALER.LOAD))
+
+    return scaler
