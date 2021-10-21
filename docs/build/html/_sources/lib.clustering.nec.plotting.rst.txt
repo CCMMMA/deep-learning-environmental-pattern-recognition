@@ -1,0 +1,21 @@
+lib.clustering.nec.plotting package
+===================================
+
+Submodules
+----------
+
+lib.clustering.nec.plotting.clustering module
+---------------------------------------------
+
+.. automodule:: lib.clustering.nec.plotting.clustering
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lib.clustering.nec.plotting
+   :members:
+   :undoc-members:
+   :show-inheritance:

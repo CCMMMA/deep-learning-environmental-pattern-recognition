@@ -1,0 +1,37 @@
+lib.utils package
+=================
+
+Submodules
+----------
+
+lib.utils.data module
+---------------------
+
+.. automodule:: lib.utils.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+lib.utils.model module
+----------------------
+
+.. automodule:: lib.utils.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+lib.utils.weather module
+------------------------
+
+.. automodule:: lib.utils.weather
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lib.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

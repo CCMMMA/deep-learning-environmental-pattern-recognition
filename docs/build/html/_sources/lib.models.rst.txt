@@ -1,0 +1,37 @@
+lib.models package
+==================
+
+Submodules
+----------
+
+lib.models.classification module
+--------------------------------
+
+.. automodule:: lib.models.classification
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+lib.models.clustering module
+----------------------------
+
+.. automodule:: lib.models.clustering
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+lib.models.unsupervised module
+------------------------------
+
+.. automodule:: lib.models.unsupervised
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lib.models
+   :members:
+   :undoc-members:
+   :show-inheritance:

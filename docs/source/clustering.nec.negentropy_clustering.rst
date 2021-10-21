@@ -1,0 +1,7 @@
+Negentropy\_Clustering
+======================
+
+.. automodule:: clustering.nec.negentropy_clustering
+   :members:
+   :undoc-members:
+   :show-inheritance:
