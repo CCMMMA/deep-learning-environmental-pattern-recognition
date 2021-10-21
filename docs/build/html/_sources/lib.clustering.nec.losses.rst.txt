@@ -1,0 +1,21 @@
+lib.clustering.nec.losses package
+=================================
+
+Submodules
+----------
+
+lib.clustering.nec.losses.negentropy module
+-------------------------------------------
+
+.. automodule:: lib.clustering.nec.losses.negentropy
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lib.clustering.nec.losses
+   :members:
+   :undoc-members:
+   :show-inheritance:

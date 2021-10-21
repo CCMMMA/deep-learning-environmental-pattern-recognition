@@ -1,0 +1,21 @@
+lib.clustering.nec.layers package
+=================================
+
+Submodules
+----------
+
+lib.clustering.nec.layers.som module
+------------------------------------
+
+.. automodule:: lib.clustering.nec.layers.som
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lib.clustering.nec.layers
+   :members:
+   :undoc-members:
+   :show-inheritance:

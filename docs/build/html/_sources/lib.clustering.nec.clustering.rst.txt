@@ -1,0 +1,21 @@
+lib.clustering.nec.clustering package
+=====================================
+
+Submodules
+----------
+
+lib.clustering.nec.clustering.agglomerative module
+--------------------------------------------------
+
+.. automodule:: lib.clustering.nec.clustering.agglomerative
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lib.clustering.nec.clustering
+   :members:
+   :undoc-members:
+   :show-inheritance:

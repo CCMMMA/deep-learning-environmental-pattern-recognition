@@ -1,0 +1,32 @@
+lib.clustering.nec package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   lib.clustering.nec.clustering
+   lib.clustering.nec.layers
+   lib.clustering.nec.losses
+   lib.clustering.nec.plotting
+
+Submodules
+----------
+
+lib.clustering.nec.negentropy\_clustering module
+------------------------------------------------
+
+.. automodule:: lib.clustering.nec.negentropy_clustering
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: lib.clustering.nec
+   :members:
+   :undoc-members:
+   :show-inheritance:
