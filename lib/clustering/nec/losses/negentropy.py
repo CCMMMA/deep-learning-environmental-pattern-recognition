@@ -6,9 +6,9 @@ def fisher_criterion(centroids, centroids_mean):
     centroid_1, centroid_2 = centroids
     mc1, mc2 = centroids_mean
 
-    sb = (mc2 - mc1) @ (mc2 - mc1).T  # between-class covariance matri
-    sw = np.cov(centroid_1) + np.cov(centroid_2)  # total within-class co- variance matrix.
-
+    sb = (mc2 - mc1) @ (mc2 - mc1).T  # between-class covariance matrix
+    sw = np.cov(centroid_1.T) + np.cov(centroid_2.T)  # total within-class co- variance matrix.
+    print("> before PINV", sw.shape)
     w = np.linalg.pinv(sw) @ (mc2 - mc1).T
     jw = (w.T * sb @ w) / (w.T @ sw @ w)
 
@@ -19,19 +19,19 @@ def negentropy(x, centroids, func, a=10):
     centroid_1, centroid_2 = centroids
     mc1, mc2 = centroids
 
-    if centroid_1.shape[1] == 1 or centroid_2.shape[1] == 1:
-        if centroid_1.shape[1] != 1 and centroid_2.shape[1] != 1:
-            if centroid_2.shape[1] == 1:
-                mc1 = np.mean(centroid_1, axis=1)
+    if centroid_1.shape[0] == 1 or centroid_2.shape[0] == 1:
+        if centroid_1.shape[0] != 1 or centroid_2.shape[0] != 1:
+            if centroid_2.shape[0] == 1:
+                mc1 = np.mean(centroid_1, axis=0)
             else:
-                mc2 = np.mean(centroid_2, axis=1)
+                mc2 = np.mean(centroid_2, axis=0)
     else:
-        mc1 = np.mean(centroid_1, axis=1)
-        mc2 = np.mean(centroid_2, axis=1)
+        mc1 = np.mean(centroid_1, axis=0)
+        mc2 = np.mean(centroid_2, axis=0)
 
     w, jw = fisher_criterion(centroids, (mc1, mc2))
 
-    ic1 = np.expand_dims(w @ x, axis=1)
+    ic1 = np.expand_dims(w, axis=0) @ x.T  #<- CONTROLLRE
 
     x = StandardScaler().fit_transform(ic1)
     neg = 0.0

@@ -1,6 +1,7 @@
 GLOBAL:
   SAVE_PATH: '/home/dinardo/phd/pubs/stormseeker/logs/stage1/'
-  RESUME_PATH: False  #'/Users/emanueldinardo/PycharmProjects/Stormseeker/logs/AutoEncoder_OneLayer/20211020-172125'
+  RESUME_PATH: '/home/dinardo/phd/pubs/stormseeker/logs/stage1/AutoEncoder_OneLayer/20211026-005803'
+  MODE: 'test'  # train | test | none
 
 DATASET:
   PATH: '/home/dinardo/phd/pubs/stormseeker/data'
@@ -15,8 +16,8 @@ DATASET:
   PREPROCESSING:
     SCALER:
       TYPE: 'standard'
-      LOAD: False  #'scaler.joblib'
-    RANDOM_SEED: 42
+      LOAD: '/home/dinardo/phd/pubs/stormseeker/logs/stage1/AutoEncoder_OneLayer/20211026-005803/scaler.joblib'
+    RANDOM_SEED: 54
     VALIDATION:
       TYPE: 'random'
       TEST_SIZE: 0.3
@@ -29,8 +30,8 @@ DATASET:
 MODEL:
   NAME: 'AutoEncoder_OneLayer'
   ENCODING_DIMS: 5
-  MODE: 'train' # [train | eval | debug]
-  LOAD: False  #'/Users/emanueldinardo/PycharmProjects/Stormseeker/logs/AutoEncoder_OneLayer/20211020-172125'
+  MODE: 'none' # [train | eval | none]
+  LOAD: '/home/dinardo/phd/pubs/stormseeker/logs/stage1/AutoEncoder_OneLayer/20211026-005803'
 
   TRAIN:
     EPOCHS: 10
@@ -47,12 +48,13 @@ MODEL:
 
 CLUSTERING:
   NAME: 'NegentropyClustering'
-  N_CENTERS: 5
+  CENTERS: 10
+  CLUSTERS: 5
   LR: 0.1
   DECAY_STEPS: 1000
   MAX_EPOCH: 10
-  SAVE: True
-  LOAD: False  #'NegentropyCLustering.joblib'
+  SAVE: 'NegentropyClustering.joblib'
+  LOAD: '/home/dinardo/phd/pubs/stormseeker/logs/stage1/AutoEncoder_OneLayer/20211026-005803/NegentropyClustering.joblib'
 
 
 

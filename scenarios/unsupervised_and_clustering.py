@@ -30,11 +30,14 @@ def clusterize(backbone, clustering_model, scaler, settings, log_dir, data=None)
         clustering_model.fit(train_features)
 
         if settings.CLUSTERING.SAVE:
-            joblib.dump(clustering_model, os.path.join(log_dir, f'{settings.CLUSTERING.NAME}.joblib'))
+            path = settings.CLUSTERING.SAVE
+            if not os.path.isabs(settings.CLUSTERING.SAVE):
+                path = os.path.join(log_dir, settings.CLUSTERING.SAVE)
+            joblib.dump(clustering_model, path)
     else:
         print("==== Phase 2. Clustering load weights")
         print(f"Restore {settings.CLUSTERING.NAME} from: {settings.CLUSTERING.LOAD}")
-        clustering_model = joblib.load(os.path.join(log_dir, f'{settings.CLUSTERING.NAME}.joblib'))
+        clustering_model = joblib.load(settings.CLUSTERING.LOAD)
 
     print("=== Phase 3. Reload dataset with geographical information and evaluate")
     train_data, test_data = utils.data.dataloader_single(settings.DATASET.PATH,
@@ -59,7 +62,8 @@ def build_clustering(backbone, settings):
                      outputs=backbone.get_layer('encoder').output)
 
     print(f"==== Phase 2. Clustering: {settings.CLUSTERING.NAME}")
-    clustering_model = clustering.__dict__[settings.CLUSTERING.NAME](n_centers=settings.CLUSTERING.N_CENTERS,
+    clustering_model = clustering.__dict__[settings.CLUSTERING.NAME](centers=settings.CLUSTERING.CENTERS,
+                                                                     clusters=settings.CLUSTERING.CLUSTERS,
                                                                      lr=settings.CLUSTERING.LR,
                                                                      decay_steps=settings.CLUSTERING.DECAY_STEPS,
                                                                      max_epoch=settings.CLUSTERING.MAX_EPOCH)
@@ -85,8 +89,10 @@ def main(args):
             os.makedirs(log_dir)
 
     with_labels = settings.DATASET.IS_LABEL  # Check if dataset contains labels
+    scaler = utils.data.get_scaler(settings, log_dir, load_scaler=settings.DATASET.PREPROCESSING.SCALER.LOAD)
+    data = [None]
 
-    if settings.MODEL.MODE in ['train', 'test']:
+    if settings.GLOBAL.MODE in ['train', 'test']:
         print("==== Phase 0. Dataloader")
         # Data loading and preprocessing
         data = utils.data.dataloader(settings.DATASET.PATH, settings.DATASET.COLUMNS,
@@ -95,10 +101,10 @@ def main(args):
 
         print("==== Phase 0. Preprocessing")
         # Preprocess data with selected scaler
-        scaler = utils.data.get_scaler(settings, log_dir, load_scaler=settings.DATASET.PREPROCESSING.SCALER.LOAD)
-        train_data, test_data = utils.data.preprocessing(data, scaler, settings, log_dir,
-                                                         fit_scaler=not settings.DATASET.PREPROCESSING.SCALER.LOAD,
-                                                         with_labels=with_labels)
+        data = utils.data.preprocessing(data, scaler, settings, log_dir,
+                                        fit_scaler=not settings.DATASET.PREPROCESSING.SCALER.LOAD,
+                                        with_labels=with_labels)
+        train_data, test_data = data
         # Get number of output features
         n_features = train_data[0].shape[-1]
 
@@ -119,7 +125,7 @@ def main(args):
         utils.model.evaluate(autoencoder, scaler, test_data, with_labels=with_labels)
 
     backbone, clustering_model = build_clustering(autoencoder, settings)
-    clusterize(backbone, clustering_model, data, settings, log_dir)
+    clusterize(backbone, clustering_model, scaler=scaler, log_dir=log_dir, settings=settings, data=data[0])
 
 
 if __name__ == '__main__':

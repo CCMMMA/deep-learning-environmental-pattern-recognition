@@ -185,8 +185,8 @@ def preprocessing(data, scaler, settings, log_dir, fit_scaler=False, with_labels
     :type settings: easydict or dict with dot attribute access
     :param log_dir: Path where save scaler
     :type log_dir: str
-    :param load_scaler: Used to load or create a new scaler
-    :type load_scaler: bool
+    :param fit_scaler: Used to load or create a new scaler
+    :type fit_scaler: bool
     :param with_labels: used to know if labels are used in the dataset or not
     :type with_labels: bool
     :return: Scaler and two lists with train/test information
@@ -210,7 +210,7 @@ def preprocessing(data, scaler, settings, log_dir, fit_scaler=False, with_labels
         test_label = None
 
     if fit_scaler:
-        scaler = scaler.fit(data)
+        scaler = scaler.fit(train_data)
         joblib.dump(scaler, os.path.join(log_dir, 'scaler.joblib'))
 
     train_data = scaler.transform(train_data)
@@ -241,6 +241,6 @@ def get_scaler(settings, log_dir, load_scaler=False):
         scaler = FunctionTransformer()
 
     if load_scaler:
-        scaler = joblib.load(os.path.join(log_dir, settings.DATASET.PREPROCESSING.SCALER.LOAD))
+        scaler = joblib.load(settings.DATASET.PREPROCESSING.SCALER.LOAD)
 
     return scaler

@@ -56,7 +56,7 @@ class SOM(object):
         print("SOM replica_inputs", x_replica.shape)
 
         lr = self.lr * np.exp(-np.arange(0, epochs) / self.decay_steps)
-        mean_loss = 0
+        mean_loss = -1
         for k in ep_iterator:
             ep_iterator.set_description(f'Epoch {k+1}/{epochs} - Loss: {mean_loss}')
             mean_loss = 0
@@ -81,10 +81,10 @@ class SOM(object):
             result = []
             el_batches = tqdm.tqdm(batches, total=batches.shape[0], disable=in_verbose)
             for batch in el_batches:
-                result.append(self.__call__(batch, verbose=verbose))
+                result.append(self(batch, verbose=verbose))
             return result
 
-        return self.__call__(x, verbose=verbose)
+        return self(x, verbose=verbose)
 
     def __call__(self, x, verbose=None):
         """
@@ -99,14 +99,16 @@ class SOM(object):
 
         clusters = [[] for _ in range(self.centers)]
         el_inputs = tqdm.trange(x.shape[0], desc='Predict', disable=verbose)
+        inputs_order = []
         for i in el_inputs:
             loss = np.linalg.norm(x[i] - self.kernel, axis=1)
             pos = int(np.argmin(loss))
             clusters[pos].append(x[i])
+            inputs_order.append(pos)
 
         clusters = [np.array(cluster) for cluster in clusters]
 
-        return clusters
+        return clusters, inputs_order
 
 
 def som(x, epochs, n_centers, lr, decay_rate, verbose=True):

@@ -4,7 +4,11 @@ from clustering.nec.losses import negentropy
 from clustering.nec.plotting import plot_dendrogram
 
 
-def agglomerative(centroids, t=0.5, criterion='distance', method='single', metric='euclidean', plot=False):
+def _filter_empty_centroid(centroids):
+    return [centroid for centroid in centroids if centroid.shape[0] > 0]
+
+
+def agglomerative(centroids, clusters=1, method='single', metric='euclidean', plot=False):
     """
     Agglomerative clustering of centroids based on negentropy
 
@@ -20,21 +24,27 @@ def agglomerative(centroids, t=0.5, criterion='distance', method='single', metri
     :param plot: Plot dendrogram
     :return: negentropy and clustering
     """
-
+    centroids = _filter_empty_centroid(centroids)
     n_centroids = len(centroids)
 
     ng = []
-
     for i in range(n_centroids):
-        for j in range(i+1, n_centroids):
-            centroid = np.concatenate([centroids[i], centroids[j]], axis=0)
-            ng.append(negentropy(centroid, [centroids[i], centroids[j]], func=1, a=1))
+        if centroids[i].shape[0] == 0:
+            ng.extend([9999. for _ in range(i+1, n_centroids)])
+        else:
+            for j in range(i+1, n_centroids):
+                if centroids[j].shape[0] == 0:
+                    ng.append(9999.)
+                else:
+                    centroid = np.concatenate([centroids[i], centroids[j]], axis=0)
+                    ng.append(negentropy(centroid, [centroids[i], centroids[j]], func=1, a=1))
 
     ng = np.asarray(ng)
-    Z = linkage(ng, method=method, metric=metric)
+    Z = linkage(ng[:, None], method=method, metric=metric)
 
     if plot:
         plot_dendrogram(Z)
 
-    clustering = fcluster(Z, t=t, criterion=criterion)
+    clustering = fcluster(Z, t=clusters, criterion='maxclust')
+
     return ng, clustering

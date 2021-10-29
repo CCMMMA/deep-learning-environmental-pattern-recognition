@@ -16,7 +16,7 @@ class NEC(object):
     """
     Negentropy Clustering
     """
-    def __init__(self, n_centers, lr=0.1, decay_steps=1000, max_epoch=100, input_shape=None):
+    def __init__(self, centers, clusters, lr=0.1, decay_steps=1000, max_epoch=100, input_shape=None):
         """
 
         :param n_centers: Number of centers/clusters
@@ -30,28 +30,33 @@ class NEC(object):
         :param input_shape: Shape of the input data, can be None
         :type input_shape: Tuple(int, int)
         """
-        self.n_centers = n_centers
+        self.centers = centers
+        self.clusters = clusters
         self.lr = lr
         self.decay_steps = decay_steps
         self.max_epoch = max_epoch
 
-        self.maps = SOM(centers=n_centers, lr=lr, decay_steps=decay_steps, verbose=True, input_shape=input_shape)
+        self.maps = SOM(centers=centers, lr=lr, decay_steps=decay_steps, verbose=True, input_shape=input_shape)
         if input_shape is not None:
             self.built = True
         else:
             self.built = False
-        self.centers = 0
 
     def fit(self, inputs):
         self.maps.fit(inputs, epochs=self.max_epoch)
-        self.centers = self.maps(inputs)
         self.built = True
 
     def __call__(self, inputs):
         if not self.built:
             raise RuntimeError('Please use .fit() before call')
-        _, clusters = agglomerative(self.centers, plot=True)
-        return clusters
+        in_centers, in_order = self.maps(inputs)
+        _, clusters = agglomerative(in_centers, clusters=self.clusters, plot=False)
+
+        clusterized_inputs = []
+        for center_pos in in_order:
+            clusterized_inputs.append(clusters[center_pos])
+
+        return np.array(clusterized_inputs)
 
     def predict(self, inputs):
         return self(inputs)
